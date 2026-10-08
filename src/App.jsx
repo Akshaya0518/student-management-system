@@ -1,61 +1,48 @@
-import "./App.css";
-
-function Header() {
-  return (
-    <header>
-      <h1>Student Management System</h1>
-    </header>
-  );
-}
-
-function StudentProfile({ name, department, year }) {
-  return (
-    <div className="student-profile">
-      <p><strong>Name:</strong> {name}</p>
-      <p><strong>Department:</strong> {department}</p>
-      <p><strong>Year:</strong> {year}</p>
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <footer>
-      <p>© 2026 Student Management System</p>
-    </footer>
-  );
-}
+import { useState } from "react";
+import Header from "./components/Header";
+import StudentProfile from "./components/StudentProfile";
+import Footer from "./components/Footer";
 
 function App() {
-  const student1 = {
-    name: "Anu",
-    department: "CSE",
-    year: "3rd Year"
+  const [practiceCount, setPracticeCount] = useState(0);
+  const [showProfile, setShowProfile] = useState(true);
+
+  const completePractice = () => {
+    setPracticeCount(practiceCount + 1);
   };
 
-  const student2 = {
-    name: "Bala",
-    department: "Computer Science",
-    year: "3rd Year"
+  const resetPractice = () => {
+    setPracticeCount(0);
+  };
+
+  const toggleProfile = () => {
+    setShowProfile(!showProfile);
   };
 
   return (
     <div>
       <Header />
 
-      <h2>Student 1</h2>
-      <StudentProfile
-        name={student1.name}
-        department={student1.department}
-        year={student1.year}
-      />
+      {showProfile && (
+        <StudentProfile
+          name="Anu"
+          department="CSE"
+          year="3rd Year"
+          practiceCount={practiceCount}
+        />
+      )}
 
-      <h2>Student 2</h2>
-      <StudentProfile
-        name={student2.name}
-        department={student2.department}
-        year={student2.year}
-      />
+      <button onClick={completePractice}>
+        Complete Practice
+      </button>
+
+      <button onClick={resetPractice}>
+        Reset
+      </button>
+
+      <button onClick={toggleProfile}>
+        {showProfile ? "Hide Profile" : "Show Profile"}
+      </button>
 
       <Footer />
     </div>
